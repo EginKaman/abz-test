@@ -1,4 +1,25 @@
 <template>
+    <v-alert
+        v-show="errors"
+        icon="mdi-cloud-alert"
+        prominent
+        title=""
+        type="error"
+        variant="text"
+    >
+        <ul>
+            <li v-for="error in errors.errors">{{ error[0] }}</li>
+        </ul>
+    </v-alert>
+    <v-alert
+        v-show="success"
+        color="yellow-darken-4"
+        icon="mdi-flash"
+        title="Flat (Default)"
+        variant="flat"
+    >
+        You have successfully registered.
+    </v-alert>
     <v-form
         ref="form"
         @submit.prevent="submit"
@@ -66,7 +87,9 @@ export default {
         password: '',
         position_id: '',
         positions: [],
-        token: ''
+        token: '',
+        errors: [],
+        success: false
     }),
     beforeMount() {
         this.getPositions();
@@ -96,7 +119,17 @@ export default {
                     Token: this.token
                 }
             }).then(res => {
-                this.token = res.data.token;
+                this.token = '';
+                this.name = '';
+                this.email = '';
+                this.phone = '';
+                this.password = '';
+                this.position_id = '';
+                this.photo = '';
+                this.errors = [];
+                this.success = true;
+            }).catch(error => {
+                this.errors = error.response.data;
             });
         }
     }
