@@ -38,7 +38,7 @@ class UserController extends Controller
     public function store(UserStoreRequest $request): JsonResponse
     {
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo')->store('images/users');
+            $photo = $request->file('photo')->store('public/images/users');
             app(ResizeAvatar::class)->resize($photo);
         }
         app(CreateUser::class)->create(array_merge($request->validated(), [

@@ -13,7 +13,7 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,9 +37,15 @@ class UserStoreRequest extends FormRequest
                 'min:2',
                 'max:100'
             ],
+            'password' => [
+                'required',
+                'string',
+                'min:6',
+                'max:26'
+            ],
             'phone' => [
                 'required',
-                'phone:UK'
+                'phone:AUTO,UK'
             ],
             'position_id' => [
                 'required',

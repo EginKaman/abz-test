@@ -26,15 +26,6 @@ const routes = [
     //     }
     // },
     {
-        name: "register",
-        path: "/register",
-        component: Register,
-        meta: {
-            middleware: "guest",
-            title: `Register`
-        }
-    },
-    {
         path: "/",
         component: AppLayout,
         children: [
@@ -44,6 +35,14 @@ const routes = [
                 component: Users,
                 meta: {
                     title: `Users`
+                }
+            },
+            {
+                name: "register",
+                path: '/register',
+                component: Register,
+                meta: {
+                    title: `Register`
                 }
             }
         ]
