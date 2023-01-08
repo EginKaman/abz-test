@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Faker\{Factory, Generator};
 use Illuminate\Support\ServiceProvider;
+use Xvladqt\Faker\LoremFlickrProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Generator::class, function () {
+            $faker = Factory::create();
+            $faker->addProvider(new LoremFlickrProvider($faker));
+            return $faker;
+        });
     }
 
     /**
